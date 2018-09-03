@@ -1,0 +1,20 @@
+{
+    "dependencies": {
+        "dom-serializer": "^0.1.0",
+        "domhandler": "^2.4.2",
+        "htmlparser2": "^3.9.2"
+    },
+    "devDependencies": {
+        "jscodeshift": "^0.5.1",
+        "parcel-bundler": "^1.9.7",
+        "prepack": "^0.2.50",
+        "uglify-js": "^3.4.9"
+    },
+    "scripts": {
+        "parcel": "parcel build index.js --experimental-scope-hoisting --no-source-maps --no-minify",
+        "jscodeshift": "jscodeshift dist/index.js -t transform.js",
+        "uglify": "uglifyjs dist/index.js -c passes=10,pure_getters=true,collapse_vars=true,unsafe=true,drop_console=true -m --mangle-props regex=/^_/ -o dist/index.js",
+        "prepack": "prepack dist/index.js --out dist/index.js",
+        "build": "npm run parcel && npm run jscodeshift && npm run uglify && npm run prepack && npm run uglify"
+    }
+}
