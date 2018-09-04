@@ -1,14 +1,18 @@
 var Parser = require('htmlparser2/lib/Parser');
-var serializer = require('dom-serializer');
 var DomHandler = require('domhandler');
 
-function parseDOM(data, options) {
+exports.parse = (data, options) => {
     var handler = new DomHandler(options);
     new Parser(handler, options).end(data);
     return handler.dom;
-}
-
-window.html1 = s => {
-    const options = { recognizeSelfClosing: true };
-    return serializer(parseDOM(s, options), options);
 };
+
+exports.serialize = require('dom-serializer');
+
+exports.utils = Object.assign(
+    {},
+    require('domutils/lib/traversal'),
+    require('domutils/lib/manipulation'),
+    require('domutils/lib/querying'),
+    require('domutils/lib/helpers')
+);

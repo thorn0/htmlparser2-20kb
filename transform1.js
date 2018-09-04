@@ -67,6 +67,11 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
         property: { name: 'decodeEntities' }
     }).replaceWith(() => j.literal(false));
 
+    ast.find(j.MemberExpression, {
+        object: { name: 'dom' },
+        property: { name: 'cheerio' }
+    }).replaceWith(() => j.literal(false));
+
     // common
 
     ast.find(j.Property, { key: { name: 'decodeEntities' } }).remove();
