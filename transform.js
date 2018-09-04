@@ -25,6 +25,27 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
         }
     }).remove();
 
+    // parser
+
+    // deprecated aliases
+    ast.find(j.AssignmentExpression, {
+        left: {
+            object: {
+                object: { name: x => /Parser$/.test(x) },
+                property: { name: 'prototype' }
+            },
+            property: { name: x => x === 'parseChunk' || x === 'done' }
+        }
+    }).remove();
+
+    ast.find(j.MemberExpression, {
+        object: {
+            object: { type: 'ThisExpression' },
+            property: { name: '_options' }
+        },
+        property: { name: 'Tokenizer' }
+    }).replaceWith(() => j.literal(false));
+
     // dom handler
 
     ast.find(j.MemberExpression, {
@@ -32,8 +53,12 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
             object: { type: 'ThisExpression' },
             property: { name: '_options' }
         },
-        property: { name: 'withDomLvl1' }
+        property: { name: x => x === 'withDomLvl1' || x === 'ignoreWhitespace' }
     }).replaceWith(() => j.literal(false));
+
+    ast.find(j.VariableDeclarator, { id: { name: x => /defaultOpts$/ } })
+        .find(j.Property, { value: { value: false } })
+        .remove();
 
     // serializer
 
