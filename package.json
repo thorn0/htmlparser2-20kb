@@ -13,7 +13,7 @@
     "scripts": {
         "parcel": "parcel build index.js --experimental-scope-hoisting --no-source-maps --no-minify",
         "jscodeshift": "jscodeshift dist/index.js -t transform.js",
-        "uglify": "uglifyjs dist/index.js -c passes=10,pure_getters=true,collapse_vars=true,unsafe=true,drop_console=true -m --mangle-props regex=/^_/ -o dist/index.js",
+        "uglify": "uglifyjs dist/index.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true -m --mangle-props regex=/^_/ -o dist/index.js",
         "prepack": "prepack dist/index.js --out dist/index.js",
         "build": "npm run parcel && npm run jscodeshift && npm run uglify && npm run prepack && npm run uglify"
     }
