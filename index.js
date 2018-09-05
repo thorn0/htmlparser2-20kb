@@ -16,3 +16,5 @@ exports.utils = Object.assign(
     require('domutils/lib/querying'),
     require('domutils/lib/helpers')
 );
+
+exports.Parser = Parser;

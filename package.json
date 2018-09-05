@@ -11,6 +11,9 @@
         "prepack": "^0.2.50",
         "uglify-js": "^3.4.9"
     },
+    "alias": {
+        "inherits": "./aliases/inherits"
+    },
     "scripts": {
         "parcel": "parcel build index.js --experimental-scope-hoisting --no-source-maps --no-minify --global html",
         "transform1": "jscodeshift dist/index.js -t transform1.js",
