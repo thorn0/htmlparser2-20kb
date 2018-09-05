@@ -15,7 +15,7 @@
         "inherits": "./aliases/inherits"
     },
     "scripts": {
-        "parcel": "parcel build index.js --experimental-scope-hoisting --no-source-maps --no-minify --global html",
+        "parcel": "parcel build index.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2$TMP$GLOBAL",
         "transform1": "jscodeshift dist/index.js -t transform1.js",
         "transform2": "jscodeshift dist/index.js -t transform2.js",
         "transform3": "jscodeshift dist/index.js -t transform3.js",
