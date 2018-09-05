@@ -16,12 +16,12 @@
         "inherits": "./aliases/inherits"
     },
     "scripts": {
-        "parcel": "parcel build index.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2$TMP$GLOBAL",
-        "transform1": "jscodeshift dist/index.js -t transform/transform1.js",
-        "transform2": "jscodeshift dist/index.js -t transform/transform2.js",
-        "transform3": "jscodeshift dist/index.js -t transform/transform3.js",
-        "uglify": "uglifyjs dist/index.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true -m --mangle-props regex=/^_/ -o dist/index.js",
-        "prepack": "prepack dist/index.js --out dist/index.js",
+        "parcel": "parcel build index.js --out-file htmlparser2-20kb.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2$TMP$GLOBAL",
+        "transform1": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform1.js",
+        "transform2": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform2.js",
+        "transform3": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform3.js",
+        "uglify": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js",
+        "prepack": "prepack dist/htmlparser2-20kb.js --out dist/htmlparser2-20kb.js",
         "build": "npm run parcel && npm run transform1 && npm run uglify && npm run prepack && npm run transform2 && npm run prepack && npm run transform3 && npm run uglify"
     }
 }
