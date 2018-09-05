@@ -1,24 +1,25 @@
 {
+    "private": true,
     "dependencies": {
-        "dom-serializer": "^0.1.0",
-        "domhandler": "^2.4.2",
-        "domutils": "^1.7.0",
-        "htmlparser2": "^3.9.2"
+        "dom-serializer": "0.1.0",
+        "domhandler": "2.4.2",
+        "domutils": "1.7.0",
+        "htmlparser2": "3.9.2"
     },
     "devDependencies": {
-        "jscodeshift": "^0.5.1",
-        "parcel-bundler": "^1.9.7",
-        "prepack": "^0.2.50",
-        "uglify-js": "^3.4.9"
+        "jscodeshift": "0.5.1",
+        "parcel-bundler": "1.9.7",
+        "prepack": "0.2.50",
+        "uglify-js": "3.4.9"
     },
     "alias": {
         "inherits": "./aliases/inherits"
     },
     "scripts": {
         "parcel": "parcel build index.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2$TMP$GLOBAL",
-        "transform1": "jscodeshift dist/index.js -t transform1.js",
-        "transform2": "jscodeshift dist/index.js -t transform2.js",
-        "transform3": "jscodeshift dist/index.js -t transform3.js",
+        "transform1": "jscodeshift dist/index.js -t transform/transform1.js",
+        "transform2": "jscodeshift dist/index.js -t transform/transform2.js",
+        "transform3": "jscodeshift dist/index.js -t transform/transform3.js",
         "uglify": "uglifyjs dist/index.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true -m --mangle-props regex=/^_/ -o dist/index.js",
         "prepack": "prepack dist/index.js --out dist/index.js",
         "build": "npm run parcel && npm run transform1 && npm run uglify && npm run prepack && npm run transform2 && npm run prepack && npm run transform3 && npm run uglify"
