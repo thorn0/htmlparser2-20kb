@@ -19,7 +19,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
             define(function() { return $1; });
         } else {
             // <script>
-            this.html = $1;
+            this.htmlparser = $1;
         }`
     );
 
