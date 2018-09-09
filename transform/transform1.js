@@ -25,6 +25,15 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
         }
     }).remove();
 
+    ast.find(j.BinaryExpression, {
+        operator: '===',
+        left: {
+            object: { type: 'ThisExpression' },
+            property: { name: '_state' }
+        },
+        right: { name: x => /_ENTITY$/.test(x) }
+    }).replaceWith(() => j.literal(false));
+
     // parser
 
     // deprecated aliases
