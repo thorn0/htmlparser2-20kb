@@ -27,14 +27,14 @@ function formatAttrs(attributes, opts) {
 
   // Loop through the attributes
   for (var key in attributes) {
-    value = attributes[key];
+    value = attributes[key] || '';
     if (output) {
       output += ' ';
     }
 
     output += key;
-    if ((value !== null && value !== '') || opts.xmlMode) {
-        output += '="' + (opts.decodeEntities ? entities.encodeXML(value) : value.replace(/"/g, '&quot;')) + '"';
+    if (value !== '' || opts.xmlMode) {
+        output += '="' + (opts.decodeEntities ? entities.encodeXML(value) : value.replace(/"/g, "&quot;")) + '"';
     }
   }
 
