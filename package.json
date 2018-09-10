@@ -23,6 +23,9 @@
         "transform3": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform3.js",
         "uglify": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js",
         "prepack": "prepack dist/htmlparser2-20kb.js --out dist/htmlparser2-20kb.js",
-        "build": "npm run parcel && npm run transform1 && npm run uglify && npm run prepack && npm run transform2 && npm run prepack && npm run transform3 && npm run uglify"
+        "step1": "npm run parcel && npm run transform1 && npm run uglify && npm run prepack",
+        "step2": "npm run step1 && npm run transform2 && npm run prepack",
+        "step3": "npm run step2 && npm run transform3 && npm run uglify",
+        "build": "npm run step3"
     }
 }
