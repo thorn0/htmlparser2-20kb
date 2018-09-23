@@ -15,7 +15,6 @@
     },
     "alias": {
         "dom-serializer": "./alias/dom-serializer",
-        "events": "./alias/events",
         "inherits": "./alias/inherits"
     },
     "scripts": {
