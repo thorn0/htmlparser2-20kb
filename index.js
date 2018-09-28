@@ -14,6 +14,7 @@ exports.utils = Object.assign(
     require('domutils/lib/traversal'),
     require('domutils/lib/manipulation'),
     {
+        filter: require('domutils/lib/querying').filter,
         findOne: require('domutils/lib/querying').findOne,
         findAll: require('domutils/lib/querying').findAll
     },

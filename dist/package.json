@@ -1,7 +1,7 @@
 {
     "name": "htmlparser2-20kb",
     "description": "Fast & forgiving HTML/XML/RSS parser bundled for the browser, 20 KB, no dependencies",
-    "version": "3.9.2-alpha.5",
+    "version": "3.9.2-alpha.6",
     "contributors": [
         "Felix Boehm <me@feedic.com>",
         "Georgii Dolzhykov <georgii.dolzhykov@gmail.com>"
