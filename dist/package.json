@@ -1,6 +1,6 @@
 {
     "name": "htmlparser2-20kb",
-    "description": "Fast & forgiving HTML/XML/RSS parser bundled for the browser, 20 KB, no dependencies",
+    "description": "Fast & forgiving HTML/XML parser bundled for the browser, < 20 KB, no dependencies",
     "version": "3.9.2-alpha.6",
     "contributors": [
         "Felix Boehm <me@feedic.com>",
@@ -8,5 +8,12 @@
     ],
     "license": "MIT",
     "repository": "github:thorn0/htmlparser2-20kb",
+    "keywords": [
+        "html",
+        "htmlparser",
+        "markup",
+        "xml",
+        "dom"
+    ],
     "main": "htmlparser2-20kb.js"
 }
