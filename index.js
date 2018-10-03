@@ -18,7 +18,12 @@ exports.utils = Object.assign(
         findOne: require('domutils/lib/querying').findOne,
         findAll: require('domutils/lib/querying').findAll
     },
-    require('domutils/lib/helpers')
+    require('domutils/lib/helpers'),
+    require('./lib/util-create')
 );
+exports.utils.remove = exports.utils.removeElement;
+exports.utils.replace = exports.utils.replaceElement;
 
 exports.Parser = Parser;
+
+exports.DomHandler = DomHandler;

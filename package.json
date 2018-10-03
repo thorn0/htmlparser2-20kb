@@ -28,7 +28,7 @@
         "step1": "npm run parcel && npm run transform1 && npm run uglify-c && npm run prepack",
         "step2": "npm run step1 && npm run transform2 && npm run prepack",
         "step3": "npm run step2 && npm run transform3 && npm run uglify-cm",
-        "build": "npm run step3",
+        "build": "npm run step3 && copy README.md dist",
         "test": "jest"
     }
 }
