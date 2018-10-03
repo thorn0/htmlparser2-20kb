@@ -39,3 +39,13 @@ test('it works', () => {
         )
     ).toBe('<div class="foo">bar<strong>baz</strong>qux</div>');
 });
+
+test('maintains consistency of the donor tree when taking nodes from it', () => {
+    var donor = hp.parse('<p>foo <strong>bar</strong><em>baz</em></p>')[0];
+    var strong = donor.children[1];
+    expect(strong.name).toBe('strong');
+    var created = hp.utils.create('div', undefined, 'qux', strong);
+    expect(hp.serialize(created)).toBe('<div>qux<strong>bar</strong></div>');
+    expect(donor.children.length).toBe(2);
+    expect(donor.children[0].next.name).toBe('em');
+});
