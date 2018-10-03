@@ -1,15 +1,15 @@
-const hp = require('../dist/htmlparser2-20kb');
+const htmlparser = require('../dist/htmlparser2-20kb');
 
-const f = s => hp.serialize(hp.parse(s));
+const roundTrip = s => htmlparser.serialize(htmlparser.parse(s));
 
 test('basic use case', () => {
-    expect(f('<div>z</div>')).toBe('<div>z</div>');
+    expect(roundTrip('<div>z</div>')).toBe('<div>z</div>');
 });
 
 test('quotes in attributes', () => {
-    expect(f(`<div a='"'>z</div>`)).toBe('<div a="&quot;">z</div>');
+    expect(roundTrip('<div a=\'"\'>z</div>')).toBe('<div a="&quot;">z</div>');
 });
 
 test('unescaped less-than', () => {
-    expect(f('a < b')).toBe('a &lt; b');
+    expect(roundTrip('a < b')).toBe('a &lt; b');
 });

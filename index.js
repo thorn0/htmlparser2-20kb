@@ -1,7 +1,7 @@
 var Parser = require('htmlparser2/lib/Parser');
 var DomHandler = require('domhandler');
 
-exports.parse = (data, options) => {
+exports.parse = function(data, options) {
     var handler = new DomHandler(options);
     new Parser(handler, options).end(data);
     return handler.dom;
