@@ -1,39 +1,45 @@
-const hp = require('../dist/htmlparser2-20kb');
+const htmlparser = require('../dist/htmlparser2-20kb');
 
 test('it works', () => {
-    expect(hp.serialize(hp.utils.create('div'))).toBe('<div></div>');
-    expect(hp.serialize(hp.utils.create('div', null))).toBe('<div></div>');
-    expect(hp.serialize(hp.utils.create('div', { class: 'foo' }))).toBe(
-        '<div class="foo"></div>'
+    expect(htmlparser.serialize(htmlparser.utils.create('div'))).toBe(
+        '<div></div>'
     );
-    expect(hp.serialize(hp.utils.create('div', { class: 'foo' }, 'bar'))).toBe(
-        '<div class="foo">bar</div>'
+    expect(htmlparser.serialize(htmlparser.utils.create('div', null))).toBe(
+        '<div></div>'
     );
-    var node = hp.utils.create(
+    expect(
+        htmlparser.serialize(htmlparser.utils.create('div', { class: 'foo' }))
+    ).toBe('<div class="foo"></div>');
+    expect(
+        htmlparser.serialize(
+            htmlparser.utils.create('div', { class: 'foo' }, 'bar')
+        )
+    ).toBe('<div class="foo">bar</div>');
+    var node = htmlparser.utils.create(
         'div',
         { class: 'foo' },
         'bar',
-        hp.utils.create('strong', null, 'baz')
+        htmlparser.utils.create('strong', null, 'baz')
     );
-    expect(hp.serialize(node)).toBe(
+    expect(htmlparser.serialize(node)).toBe(
         '<div class="foo">bar<strong>baz</strong></div>'
     );
     expect(node.children[1].prev.data).toBe('bar');
     expect(node.children[1].parent).toBe(node);
     expect(
-        hp.serialize(
-            hp.utils.create('div', { class: 'foo' }, [
+        htmlparser.serialize(
+            htmlparser.utils.create('div', { class: 'foo' }, [
                 'bar',
-                hp.utils.create('strong', null, 'baz')
+                htmlparser.utils.create('strong', null, 'baz')
             ])
         )
     ).toBe('<div class="foo">bar<strong>baz</strong></div>');
     expect(
-        hp.serialize(
-            hp.utils.create(
+        htmlparser.serialize(
+            htmlparser.utils.create(
                 'div',
                 { class: 'foo' },
-                ['bar', hp.utils.create('strong', null, 'baz')],
+                ['bar', htmlparser.utils.create('strong', null, 'baz')],
                 'qux'
             )
         )
@@ -41,11 +47,34 @@ test('it works', () => {
 });
 
 test('maintains consistency of the donor tree when taking nodes from it', () => {
-    var donor = hp.parse('<p>foo <strong>bar</strong><em>baz</em></p>')[0];
+    var donor = htmlparser.parse(
+        '<p>foo <strong>bar</strong><em>baz</em></p>'
+    )[0];
     var strong = donor.children[1];
     expect(strong.name).toBe('strong');
-    var created = hp.utils.create('div', undefined, 'qux', strong);
-    expect(hp.serialize(created)).toBe('<div>qux<strong>bar</strong></div>');
+    var created = htmlparser.utils.create('div', undefined, 'qux', strong);
+    expect(htmlparser.serialize(created)).toBe(
+        '<div>qux<strong>bar</strong></div>'
+    );
     expect(donor.children.length).toBe(2);
     expect(donor.children[0].next.name).toBe('em');
+});
+
+test('misc #1', () => {
+    const markup =
+        '<layout><field name="a"></field><field name="b"/><foo/></layout>';
+    const el = htmlparser.parse(markup, { recognizeSelfClosing: true })[0];
+    const fields = [];
+    for (const child of el.children.slice()) {
+        htmlparser.utils.removeElement(child);
+        if (child.name === 'field') {
+            fields.push(child);
+            const div = htmlparser.utils.create('div', null, child);
+            htmlparser.utils.appendChild(el, div);
+        }
+    }
+    expect(fields.length).toBe(2);
+    expect(htmlparser.serialize(el)).toBe(
+        '<layout><div><field name="a"></field></div><div><field name="b"></field></div></layout>'
+    );
 });
