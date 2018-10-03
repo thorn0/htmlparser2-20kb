@@ -46,6 +46,19 @@ test('it works', () => {
     ).toBe('<div class="foo">bar<strong>baz</strong>qux</div>');
 });
 
+test('ignore empty children', () => {
+    var node = htmlparser.utils.create(
+        'div',
+        undefined,
+        'x',
+        null,
+        undefined,
+        '',
+        'y'
+    );
+    expect(htmlparser.serialize(node)).toBe('<div>xy</div>');
+});
+
 test('maintains consistency of the donor tree when taking nodes from it', () => {
     var donor = htmlparser.parse(
         '<p>foo <strong>bar</strong><em>baz</em></p>'
