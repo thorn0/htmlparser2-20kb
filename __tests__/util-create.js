@@ -73,6 +73,18 @@ test('maintains consistency of the donor tree when taking nodes from it', () => 
     expect(donor.children[0].next.name).toBe('em');
 });
 
+test('CSS classes shortcut', () => {
+    expect(htmlparser.serialize(htmlparser.utils.create('span.foo'))).toBe(
+        '<span class="foo"></span>'
+    );
+    expect(htmlparser.serialize(htmlparser.utils.create('span.foo.zoo'))).toBe(
+        '<span class="foo zoo"></span>'
+    );
+    expect(htmlparser.serialize(htmlparser.utils.create('.foo'))).toBe(
+        '<div class="foo"></div>'
+    );
+});
+
 test('misc #1', () => {
     const markup =
         '<layout><field name="a"></field><field name="b"/><foo/></layout>';
