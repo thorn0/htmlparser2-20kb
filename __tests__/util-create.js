@@ -65,7 +65,7 @@ test('maintains consistency of the donor tree when taking nodes from it', () => 
     )[0];
     var strong = donor.children[1];
     expect(strong.name).toBe('strong');
-    var created = htmlparser.utils.create('div', undefined, 'qux', strong);
+    var created = htmlparser.utils.create('div', 'qux', strong);
     expect(htmlparser.serialize(created)).toBe(
         '<div>qux<strong>bar</strong></div>'
     );
