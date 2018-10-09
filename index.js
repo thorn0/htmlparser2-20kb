@@ -1,29 +1,33 @@
 var Parser = require('htmlparser2/lib/Parser');
 var DomHandler = require('domhandler');
 
-exports.parse = function(data, options) {
-    var handler = new DomHandler(options);
-    new Parser(handler, options).end(data);
-    return handler.dom;
-};
+var traversal = require('domutils/lib/traversal'),
+    manipulation = require('domutils/lib/manipulation'),
+    querying = require('domutils/lib/querying');
 
-exports.serialize = require('dom-serializer');
-
-exports.utils = Object.assign(
-    {},
-    require('domutils/lib/traversal'),
-    require('domutils/lib/manipulation'),
-    {
-        filter: require('domutils/lib/querying').filter,
-        findOne: require('domutils/lib/querying').findOne,
-        findAll: require('domutils/lib/querying').findAll
+Object.assign(exports, {
+    parse: function(data, options) {
+        var handler = new DomHandler(options);
+        new Parser(handler, options).end(data);
+        return handler.dom;
     },
-    require('domutils/lib/helpers'),
-    require('./lib/util-create')
-);
-exports.utils.remove = exports.utils.removeElement;
-exports.utils.replace = exports.utils.replaceElement;
+    serialize: require('dom-serializer'),
+    Parser: Parser,
+    DomHandler: DomHandler,
 
-exports.Parser = Parser;
+    getSiblings: traversal.getSiblings,
+    getAttribValue: traversal.getAttributeValue,
+    hasAttrib: traversal.hasAttrib,
 
-exports.DomHandler = DomHandler;
+    remove: manipulation.removeElement,
+    replace: manipulation.replaceElement,
+    appendChild: manipulation.appendChild,
+    append: manipulation.append,
+    prepend: manipulation.prepend,
+
+    filter: querying.filter,
+    findOne: querying.findOne,
+    findAll: querying.findAll,
+
+    create: require('./lib/util-create').create
+});
