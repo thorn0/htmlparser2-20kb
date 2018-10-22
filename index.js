@@ -5,7 +5,7 @@ var traversal = require('domutils/lib/traversal'),
     manipulation = require('domutils/lib/manipulation'),
     querying = require('domutils/lib/querying');
 
-Object.assign(exports, {
+module.exports = {
     parse: function(data, options) {
         var handler = new DomHandler(options);
         new Parser(handler, options).end(data);
@@ -30,4 +30,4 @@ Object.assign(exports, {
     findAll: querying.findAll,
 
     create: require('./lib/util-create').create
-});
+};
