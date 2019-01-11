@@ -34,6 +34,42 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
         right: { name: x => /_ENTITY$/.test(x) }
     }).replaceWith(() => j.literal(false));
 
+    const whileLoopInParse = ast
+        .find(j.AssignmentExpression, {
+            left: {
+                object: {
+                    object: { name: x => /Tokenizer$/.test(x) },
+                    property: { name: 'prototype' }
+                },
+                property: { name: '_parse' }
+            },
+            right: {
+                type: 'FunctionExpression'
+            }
+        })
+        .find(j.WhileStatement);
+
+    whileLoopInParse
+        .find(j.MemberExpression, {
+            object: { type: 'ThisExpression' },
+            property: { name: '_state' }
+        })
+        .replaceWith(() => j.identifier('state___'));
+
+    whileLoopInParse.forEach(p => {
+        p.value.body.body.unshift(
+            j.variableDeclaration('var', [
+                j.variableDeclarator(
+                    j.identifier('state___'),
+                    j.memberExpression(
+                        j.thisExpression(),
+                        j.identifier('_state')
+                    )
+                )
+            ])
+        );
+    });
+
     // parser
 
     // deprecated aliases
@@ -65,7 +101,9 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
         property: { name: x => x === 'withDomLvl1' || x === 'ignoreWhitespace' }
     }).replaceWith(() => j.literal(false));
 
-    ast.find(j.VariableDeclarator, { id: { name: x => /defaultOpts$/ } })
+    ast.find(j.VariableDeclarator, {
+        id: { name: x => /defaultOpts$/.test(x) }
+    })
         .find(j.Property, { value: { value: false } })
         .remove();
 
@@ -85,5 +123,21 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
 
     ast.find(j.Property, { key: { name: 'decodeEntities' } }).remove();
 
-    return ast.toSource();
+    let result = ast.toSource();
+
+    // utils/traverse
+
+    result = result.replace(
+        /&& hasOwnProperty\.call/,
+        '&& Object.prototype.hasOwnProperty.call'
+    );
+
+    // util-create
+
+    result = result.replace(
+        /[\w$]+_typeof\(def\) === 'object'/,
+        'typeof def === "object"'
+    );
+
+    return result;
 };

@@ -1,34 +1,34 @@
 {
-    "private": true,
-    "dependencies": {
-        "dom-serializer": "0.1.0",
-        "domhandler": "2.4.2",
-        "domutils": "1.7.0",
-        "htmlparser2": "3.10.0"
-    },
-    "devDependencies": {
-        "jest": "^23.6.0",
-        "jscodeshift": "0.5.1",
-        "parcel-bundler": "1.10.3",
-        "prepack": "0.2.54",
-        "uglify-js": "3.4.9"
-    },
-    "alias": {
-        "dom-serializer": "./alias/dom-serializer",
-        "inherits": "./alias/inherits"
-    },
-    "scripts": {
-        "parcel": "parcel build index.js --out-file htmlparser2-20kb.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2$TMP$GLOBAL",
-        "transform1": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform1.js",
-        "transform2": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform2.js",
-        "transform3": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform3.js",
-        "uglify-c": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true -o dist/htmlparser2-20kb.js",
-        "uglify-cm": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js",
-        "prepack": "prepack dist/htmlparser2-20kb.js --out dist/htmlparser2-20kb.js",
-        "step1": "npm run parcel && npm run transform1 && npm run uglify-c && npm run prepack",
-        "step2": "npm run step1 && npm run transform2 && npm run prepack",
-        "step3": "npm run step2 && npm run transform3 && npm run uglify-cm",
-        "build": "npm run step3 && copy README.md dist",
-        "test": "jest"
-    }
+  "private": true,
+  "dependencies": {
+    "dom-serializer": "0.1.0",
+    "domhandler": "2.4.2",
+    "domutils": "1.7.0",
+    "htmlparser2": "3.10.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "jscodeshift": "0.6.2",
+    "parcel-bundler": "1.11.0",
+    "prepack": "0.2.54",
+    "uglify-js": "3.4.9"
+  },
+  "alias": {
+    "dom-serializer": "./alias/dom-serializer",
+    "inherits": "./alias/inherits"
+  },
+  "scripts": {
+    "parcel": "parcel build index.js --out-file htmlparser2-20kb.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2$TMP$GLOBAL",
+    "transform1": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform1.js",
+    "transform2": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform2.js",
+    "transform3": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform3.js",
+    "uglify-c": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true -o dist/htmlparser2-20kb.js",
+    "uglify-cm": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js",
+    "prepack": "prepack dist/htmlparser2-20kb.js --out dist/htmlparser2-20kb.js",
+    "step1": "npm run parcel && npm run transform1 && npm run uglify-c && npm run prepack",
+    "step2": "npm run transform2 && npm run prepack",
+    "step3": "npm run transform3 && npm run uglify-cm",
+    "build": "npm run step1 && npm run step2 && npm run step3 && copy README.md dist",
+    "test": "jest"
+  }
 }
