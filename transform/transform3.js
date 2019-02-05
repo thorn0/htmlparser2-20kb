@@ -1,27 +1,21 @@
 module.exports = (fileInfo, { jscodeshift: j }) => {
-    const ast = j(fileInfo.source);
+  const ast = j(fileInfo.source);
 
-    // remove leftovers after transform2
+  // add UMD boilerplate
 
-    ast.find(j.AssignmentExpression, {
-        left: { property: { name: 'defineProperty' } }
-    }).remove();
+  const source = ast.toSource().replace(
+    /[\w$]+\.HTMLPARSER2\$TMP\$GLOBAL = ([\w$]+);/,
+    `if (typeof exports === "object" && typeof module !== "undefined") {
+      // CommonJS
+      module.exports = $1;
+    } else if (typeof define === "function" && define.amd) {
+      // RequireJS
+      define(function() { return $1; });
+    } else {
+      // <script>
+      this.htmlparser = $1;
+    }`
+  );
 
-    // add UMD boilerplate
-
-    const source = ast.toSource().replace(
-        /[\w$]+\.HTMLPARSER2\$TMP\$GLOBAL = ([\w$]+);/,
-        `if (typeof exports === "object" && typeof module !== "undefined") {
-            // CommonJS
-            module.exports = $1;
-        } else if (typeof define === "function" && define.amd) {
-            // RequireJS
-            define(function() { return $1; });
-        } else {
-            // <script>
-            this.htmlparser = $1;
-        }`
-    );
-
-    return source;
+  return source;
 };
