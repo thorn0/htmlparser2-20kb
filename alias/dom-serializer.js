@@ -129,7 +129,11 @@ function renderDirective(elem) {
 }
 
 function renderText(elem, opts) {
-  var data = elem.data || '';
+  var data = elem.data;
+
+  if (!data) {
+    return '';
+  }
 
   if (!(elem.parent && elem.parent.name in unencodedElements)) {
     if (opts.decodeEntities) {
