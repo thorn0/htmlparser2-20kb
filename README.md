@@ -8,16 +8,18 @@
 
 ## Includes:
 
--   [`htmlparser2`](https://github.com/fb55/htmlparser2)
--   [`domhandler`](https://github.com/fb55/domhandler)
--   [`dom-serializer`](https://github.com/cheeriojs/dom-serializer) (with a fix for [#26](https://github.com/cheeriojs/dom-serializer/issues/26))
--   [`domutils`](https://github.com/fb55/domutils)
+- [`htmlparser2`](https://github.com/fb55/htmlparser2)
+- [`domhandler`](https://github.com/fb55/domhandler)
+- [`dom-serializer`](https://github.com/cheeriojs/dom-serializer) with a fix for [#26](https://github.com/cheeriojs/dom-serializer/issues/26)
+- The most useful parts of [`domutils`](https://github.com/fb55/domutils)
+- A `create` utility function for simple DOM node creation
+- TypeScript type definitions
 
 ## Excludes:
 
--   The [`decodeEntities`](https://github.com/fb55/htmlparser2/wiki/Parser-options#option-decodeentities) option
--   [`FeedHandler`](https://github.com/fb55/htmlparser2/blob/master/lib/FeedHandler.js)
--   Some functions from `domutils`
+- The [`decodeEntities`](https://github.com/fb55/htmlparser2/wiki/Parser-options#option-decodeentities) option
+- [`FeedHandler`](https://github.com/fb55/htmlparser2/blob/master/lib/FeedHandler.js)
+- Some functions from `domutils`
 
 ## Compare:
 
