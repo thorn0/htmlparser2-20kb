@@ -7,11 +7,11 @@
     "htmlparser2": "3.10.1"
   },
   "devDependencies": {
-    "jest": "24.1.0",
+    "jest": "24.5.0",
     "jscodeshift": "0.6.3",
-    "parcel-bundler": "1.11.0",
+    "parcel-bundler": "1.12.3",
     "prepack": "0.2.54",
-    "uglify-js": "3.4.9"
+    "uglify-js": "3.5.2"
   },
   "alias": {
     "dom-serializer": "./alias/dom-serializer",
@@ -22,8 +22,8 @@
     "transform1": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform1.js",
     "transform2": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform2.js",
     "transform3": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform3.js",
-    "uglify-c": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true,drop_console=true,hoist_funs=true,hoist_vars=true -o dist/htmlparser2-20kb.js",
-    "uglify-cm": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,collapse_vars=false,unsafe=true -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js",
+    "uglify-c": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,unsafe=true,drop_console=true,hoist_funs=true,hoist_vars=true,keep_fargs=false -o dist/htmlparser2-20kb.js --timings",
+    "uglify-cm": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,unsafe=true,hoist_funs=true,hoist_vars=true,keep_fargs=false -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js --timings",
     "run-prepack": "prepack dist/htmlparser2-20kb.js --out dist/htmlparser2-20kb.js",
     "step1": "npm run parcel && npm run transform1 && npm run uglify-c && npm run run-prepack",
     "step2": "npm run transform2 && npm run run-prepack",
