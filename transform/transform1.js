@@ -135,6 +135,19 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     })
     .replaceWith(() => j.literal(false));
 
+  const dupe1 = ast
+      .find(j.VariableDeclarator, { id: { name: x => /\$var\$singleTag$/.test(x) } })
+      .nodes()[0],
+    dupe2 = ast
+      .find(j.VariableDeclarator, { id: { name: x => /\$var\$voidElements$/.test(x) } })
+      .nodes()[0];
+
+  if (dupe1.start > dupe2.start) {
+    dupe1.init = j.identifier(dupe2.id.name);
+  } else {
+    dupe2.init = j.identifier(dupe1.id.name);
+  }
+
   // common
 
   ast.find(j.Property, { key: { name: 'decodeEntities' } }).remove();
