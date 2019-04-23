@@ -18,6 +18,7 @@
 ## Excludes:
 
 - The [`decodeEntities`](https://github.com/fb55/htmlparser2/wiki/Parser-options#option-decodeentities) option
+- Support for async usage with streams
 - [`FeedHandler`](https://github.com/fb55/htmlparser2/blob/master/lib/FeedHandler.js)
 - Some functions from `domutils`
 

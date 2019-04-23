@@ -7,7 +7,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     .find(j.AssignmentExpression, {
       left: {
         object: { type: 'ThisExpression' },
-        property: { name: '_decodeEntities' }
+        property: { name: x => x === '_decodeEntities' || x === '_running' }
       }
     })
     .remove();
@@ -26,10 +26,17 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
           object: { name: x => /Tokenizer$/.test(x) },
           property: { name: 'prototype' }
         },
-        property: { name: x => /Entity/.test(x) }
+        property: { name: x => /Entity/.test(x) || x === 'pause' || x === 'resume' }
       }
     })
     .remove();
+
+  ast
+    .find(j.MemberExpression, {
+      object: { type: 'ThisExpression' },
+      property: { name: '_running' }
+    })
+    .replaceWith(() => j.literal(true));
 
   ast
     .find(j.BinaryExpression, {
@@ -77,7 +84,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
 
   // parser
 
-  // deprecated aliases
+  // deprecated aliases and async usage
   ast
     .find(j.AssignmentExpression, {
       left: {
@@ -85,7 +92,9 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
           object: { name: x => /Parser$/.test(x) },
           property: { name: 'prototype' }
         },
-        property: { name: x => x === 'parseChunk' || x === 'done' }
+        property: {
+          name: x => x === 'parseChunk' || x === 'done' || x === 'pause' || x === 'resume'
+        }
       }
     })
     .remove();

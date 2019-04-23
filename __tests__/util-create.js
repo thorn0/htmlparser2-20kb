@@ -27,6 +27,7 @@ test('it works', () => {
     htmlparser.serialize(
       htmlparser.create(
         'div',
+        { class: 'bar' },
         { class: 'foo' },
         ['bar', htmlparser.create('strong', null, 'baz')],
         'qux'
