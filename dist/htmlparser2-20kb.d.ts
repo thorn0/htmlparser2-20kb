@@ -2,17 +2,55 @@ export as namespace htmlparser;
 export = htmlparser;
 
 declare namespace htmlparser {
-  interface DomNode {
-    type: 'text' | 'directive' | 'comment' | 'script' | 'style' | 'tag' | 'cdata' | 'doctype';
-    data?: string;
-    name?: string;
-    attribs?: { [name: string]: string };
-    children?: DomNode[];
+  interface BaseDomNode {
     parent?: DomNode | null;
     next?: DomNode | null;
     prev?: DomNode | null;
     startIndex?: number;
     endIndex?: number;
+  }
+
+  type DomNode = DomTextNode | DomDirectiveNode | DomCommentNode | DomTagNode | DomCdataNode;
+
+  interface DomTextNode extends BaseDomNode {
+    type: 'text';
+    data: string;
+    name: undefined;
+    attribs: undefined;
+    children: undefined;
+  }
+
+  interface DomDirectiveNode extends BaseDomNode {
+    type: 'directive';
+    data: string;
+    // Actually, `name` is `string`, but this breaks type guards like `if (el.name === 'p') ...`.
+    name: undefined;
+    attribs: undefined;
+    children: undefined;
+  }
+
+  interface DomCommentNode extends BaseDomNode {
+    type: 'comment';
+    data: string;
+    name: undefined;
+    attribs: undefined;
+    children: undefined;
+  }
+
+  interface DomTagNode extends BaseDomNode {
+    type: 'tag' | 'script' | 'style';
+    data: undefined;
+    name: string;
+    attribs: { [name: string]: string };
+    children: DomNode[];
+  }
+
+  interface DomCdataNode extends BaseDomNode {
+    type: 'cdata';
+    data: undefined;
+    name: undefined;
+    attribs: undefined;
+    children: DomTextNode[];
   }
 
   class Parser {
