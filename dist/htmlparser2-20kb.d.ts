@@ -15,31 +15,31 @@ declare namespace htmlparser {
   interface DomTextNode extends BaseDomNode {
     type: 'text';
     data: string;
-    name: undefined;
-    attribs: undefined;
-    children: undefined;
+    name?: undefined;
+    attribs?: undefined;
+    children?: undefined;
   }
 
   interface DomDirectiveNode extends BaseDomNode {
     type: 'directive';
     data: string;
     // Actually, `name` is `string`, but this breaks type guards like `if (el.name === 'p') ...`.
-    name: undefined;
-    attribs: undefined;
-    children: undefined;
+    name?: undefined;
+    attribs?: undefined;
+    children?: undefined;
   }
 
   interface DomCommentNode extends BaseDomNode {
     type: 'comment';
     data: string;
-    name: undefined;
-    attribs: undefined;
-    children: undefined;
+    name?: undefined;
+    attribs?: undefined;
+    children?: undefined;
   }
 
   interface DomTagNode extends BaseDomNode {
     type: 'tag' | 'script' | 'style';
-    data: undefined;
+    data?: undefined;
     name: string;
     attribs: { [name: string]: string };
     children: DomNode[];
@@ -47,10 +47,11 @@ declare namespace htmlparser {
 
   interface DomCdataNode extends BaseDomNode {
     type: 'cdata';
-    data: undefined;
-    name: undefined;
-    attribs: undefined;
-    children: DomTextNode[];
+    data?: undefined;
+    name?: undefined;
+    attribs?: undefined;
+    // Specifying `DomTextNode[]` is not practical because of https://github.com/microsoft/TypeScript/issues/35045
+    children: DomNode[];
   }
 
   class Parser {
