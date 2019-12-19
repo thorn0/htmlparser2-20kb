@@ -13,7 +13,7 @@
 - [`dom-serializer`](https://github.com/cheeriojs/dom-serializer) with a fix for [#26](https://github.com/cheeriojs/dom-serializer/issues/26)
 - The most useful parts of [`domutils`](https://github.com/fb55/domutils)
 - A `create` utility function for simple DOM node creation
-- TypeScript type definitions
+- [TypeScript type definitions](https://github.com/thorn0/htmlparser2-20kb/blob/master/dist/htmlparser2-20kb.d.ts)
 
 ## Excludes:
 
