@@ -93,16 +93,16 @@ declare namespace htmlparser {
     >
   ): DomNode;
 
-  function getSiblings(elem: DomNode): DomNode;
-  function hasAttrib(elem: DomNode, name: string): boolean;
+  function getSiblings(node: DomNode): DomNode;
+  function hasAttrib(tag: DomTagNode, name: string): boolean;
 
-  function remove(elem: DomNode): void;
-  function replace(elem: DomNode, replacement: DomNode): void;
-  function appendChild(elem: DomNode, child: DomNode): void;
-  /** Insert `next` after `elem`. */
-  function append(elem: DomNode, next: DomNode): void;
-  /** Insert `prev` before `elem`. */
-  function prepend(elem: DomNode, prev: DomNode): void;
+  function remove(node: DomNode, dom?: DomNode[]): void;
+  function replace(node: DomNode, replacement: DomNode): void;
+  function appendChild(tag: DomTagNode, child: DomNode): void;
+  /** Insert `next` after `node`. */
+  function append(node: DomNode, next: DomNode): void;
+  /** Insert `prev` before `node`. */
+  function prepend(node: DomNode, prev: DomNode): void;
 
   /**
    * Recursive, depth-first.
@@ -120,13 +120,13 @@ declare namespace htmlparser {
    * Searches only for tags, ignores text nodes, etc.
    * Recursive, depth-first.
    */
-  function findOne(test: (el: DomNode) => boolean, elements: DomNode[]): DomNode | null;
+  function findOne(test: (el: DomTagNode) => boolean, nodes: DomNode[]): DomTagNode | null;
 
   /**
    * Searches only for tags, ignores text nodes, etc.
    * Non-recursive, depth-first.
    */
-  function findAll(test: (el: DomNode) => boolean, elements: DomNode[]): DomNode[];
+  function findAll(test: (el: DomTagNode) => boolean, nodes: DomNode[]): DomTagNode[];
 
   interface Handler {
     onopentag?: (name: string, attribs: { [type: string]: string }) => void;

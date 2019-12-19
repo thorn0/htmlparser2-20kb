@@ -19,7 +19,16 @@ module.exports = {
   getAttribValue: traversal.getAttributeValue,
   hasAttrib: traversal.hasAttrib,
 
-  remove: manipulation.removeElement,
+  remove: function(node, dom) {
+    manipulation.removeElement(node);
+    if (dom) {
+      while (true) {
+        var index = dom.indexOf(node);
+        if (index === -1) break;
+        dom.splice(index, 1);
+      }
+    }
+  },
   replace: manipulation.replaceElement,
   appendChild: manipulation.appendChild,
   append: manipulation.append,
