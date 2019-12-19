@@ -21,7 +21,7 @@ module.exports = {
 
   remove: function(node, dom) {
     manipulation.removeElement(node);
-    if (dom) {
+    if (Array.isArray(dom)) {
       while (true) {
         var index = dom.indexOf(node);
         if (index === -1) break;

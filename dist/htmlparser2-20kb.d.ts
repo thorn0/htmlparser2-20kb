@@ -93,14 +93,24 @@ declare namespace htmlparser {
     >
   ): DomNode;
 
-  function getSiblings(node: DomNode): DomNode;
+  function getSiblings(node: DomNode): DomNode[];
   function hasAttrib(tag: DomTagNode, name: string): boolean;
 
-  function remove(node: DomNode, dom?: DomNode[]): void;
+  /**
+   *
+   * @param node Node to remove
+   * @param dom Array of top-level nodes, e.g. returned from `parse`.
+   * Ignored if `number`, so `forEach` can be used: `nodes.forEach(remove)`
+   */
+  function remove(node: DomNode, dom?: DomNode[] | number): void;
+
   function replace(node: DomNode, replacement: DomNode): void;
+
   function appendChild(tag: DomTagNode, child: DomNode): void;
+
   /** Insert `next` after `node`. */
   function append(node: DomNode, next: DomNode): void;
+
   /** Insert `prev` before `node`. */
   function prepend(node: DomNode, prev: DomNode): void;
 
