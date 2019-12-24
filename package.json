@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "dom-serializer": "0.1.1",
+    "dom-serializer": "0.2.2",
     "domhandler": "2.4.2",
     "domutils": "1.7.0",
     "@thorn0/htmlparser2": "3.10.2"
@@ -18,14 +18,14 @@
     "inherits": "./alias/inherits"
   },
   "scripts": {
-    "parcel": "parcel build index.js --out-file htmlparser2-20kb.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2$TMP$GLOBAL",
+    "parcel": "parcel build index.js --out-file htmlparser2-20kb.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2_TMP_GLOBAL",
     "transform1": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform1.js",
     "transform2": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform2.js",
     "uglify-c": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,unsafe=true,drop_console=true,hoist_funs=true,hoist_vars=true,keep_fargs=false,unsafe_regexp=true -o dist/htmlparser2-20kb.js --timings",
     "uglify-cm": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,unsafe=true,hoist_funs=true,keep_fargs=false -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js --timings",
     "run-prepack": "prepack dist/htmlparser2-20kb.js --out dist/htmlparser2-20kb.js",
-    "bundle": "npm run parcel && npm run transform1 && npm run uglify-c && npm run run-prepack && npm run transform2 && npm run uglify-cm",
-    "build": "npm run bundle && copy README.md dist && ls dist/htmlparser2-20kb.js -l && npm run test",
+    "bundle": "yarn run parcel && yarn run transform1 && yarn run uglify-c && yarn run run-prepack && yarn run transform2 && yarn run uglify-cm",
+    "build": "yarn run bundle && cp README.md dist/ && ls dist/htmlparser2-20kb.js -l && yarn run test",
     "test": "jest"
   },
   "prettier": {

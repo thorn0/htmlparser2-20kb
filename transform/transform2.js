@@ -42,7 +42,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     .replace(/Array\.isArray\(/g, 'isArray(')
     .replace(/([\w.]+) = (\w+);\s+([\w.]+) = \2;/g, '$1 = $3 = $2;')
     .replace(
-      /[\w$]+\.HTMLPARSER2\$TMP\$GLOBAL = ([\w$]+);/,
+      /[\w$]+\.HTMLPARSER2_TMP_GLOBAL = ([\w$]+);/,
       `if (typeof exports === "object" && typeof module !== "undefined") {
     // CommonJS
     module.exports = $1;

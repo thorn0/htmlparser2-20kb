@@ -8,8 +8,8 @@
 
 ## Includes:
 
-- [`htmlparser2`](https://github.com/fb55/htmlparser2)
-- [`domhandler`](https://github.com/fb55/domhandler)
+- [`htmlparser2`](https://github.com/fb55/htmlparser2) 3.x
+- [`domhandler`](https://github.com/fb55/domhandler) 2.x
 - [`dom-serializer`](https://github.com/cheeriojs/dom-serializer) with a fix for [#26](https://github.com/cheeriojs/dom-serializer/issues/26)
 - The most useful parts of [`domutils`](https://github.com/fb55/domutils)
 - A `create` utility function for simple DOM node creation
@@ -21,6 +21,8 @@
 - Support for async usage with streams
 - [`FeedHandler`](https://github.com/fb55/htmlparser2/blob/master/lib/FeedHandler.js)
 - Some functions from `domutils`
+- [Automatic fix-up](https://github.com/cheeriojs/dom-serializer/commit/78093e974872c5250922b07542095785ea4637e9) of mixed-case tag and attribute names.
+  Set the `lowerCaseTags` and `lowerCaseAttributeNames` options of the parser to `false` to retain the casing.
 
 ## Compare:
 
