@@ -91,7 +91,7 @@ declare namespace htmlparser {
       | undefined
       | Array<DomNode | string | { [name: string]: string } | undefined>
     >
-  ): DomNode;
+  ): DomTagNode;
 
   function getSiblings(node: DomNode): DomNode[];
   function hasAttrib(tag: DomTagNode, name: string): boolean;
