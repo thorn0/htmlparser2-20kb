@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "paths": { "htmlparser2-20kb": ["./../dist/htmlparser2-20kb.d.ts"] }
+  }
+}
