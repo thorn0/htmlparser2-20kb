@@ -1,7 +1,8 @@
 const htmlparser = require("../dist/htmlparser2-20kb");
 
-const roundTrip = (s, parserOptions) =>
-  htmlparser.serialize(htmlparser.parse(s, parserOptions));
+const { parse, serialize } = htmlparser;
+
+const roundTrip = (s, parserOptions) => serialize(parse(s, parserOptions));
 
 test("basic use case", () => {
   expect(roundTrip("<div>z</div>")).toBe("<div>z</div>");
@@ -27,4 +28,13 @@ test("misc HTML", () => {
       "<div></div   ><p>&lt;</p><!--<x>--><input    type=checkbox checked/>"
     )
   ).toBe('<div></div><p>&lt;</p><!--<x>--><input type="checkbox" checked>');
+});
+
+test("spaceInSelfClosing", () => {
+  expect(
+    serialize(parse("<x1 /><x2 />", { recognizeSelfClosing: true }), {
+      xmlMode: true,
+      spaceInSelfClosing: true,
+    })
+  ).toBe("<x1 /><x2 />");
 });

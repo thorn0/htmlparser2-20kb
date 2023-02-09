@@ -193,6 +193,7 @@ declare namespace htmlparser {
   }
 
   interface SerializerOptions {
-    xmlMode?: boolean;
+    xmlMode?: boolean | 'foreign';
+    spaceInSelfClosing?: boolean;
   }
 }

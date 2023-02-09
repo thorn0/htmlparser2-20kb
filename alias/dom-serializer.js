@@ -141,7 +141,7 @@ function renderTag(elem, opts) {
   }
 
   if (opts.xmlMode && (!elem.children || elem.children.length === 0)) {
-    tag += "/>";
+    tag += opts.spaceInSelfClosing ? " />" : "/>";
   } else {
     tag += ">";
     if (elem.children) {
