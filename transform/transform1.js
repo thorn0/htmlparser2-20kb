@@ -6,16 +6,16 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
   ast
     .find(j.AssignmentExpression, {
       left: {
-        object: { type: 'ThisExpression' },
-        property: { name: x => x === '_decodeEntities' || x === '_running' }
-      }
+        object: { type: "ThisExpression" },
+        property: { name: (x) => x === "_decodeEntities" || x === "_running" },
+      },
     })
     .remove();
 
   ast
     .find(j.MemberExpression, {
-      object: { type: 'ThisExpression' },
-      property: { name: '_decodeEntities' }
+      object: { type: "ThisExpression" },
+      property: { name: "_decodeEntities" },
     })
     .replaceWith(() => j.literal(false));
 
@@ -23,29 +23,31 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     .find(j.AssignmentExpression, {
       left: {
         object: {
-          object: { name: x => /Tokenizer$/.test(x) },
-          property: { name: 'prototype' }
+          object: { name: (x) => /Tokenizer$/.test(x) },
+          property: { name: "prototype" },
         },
-        property: { name: x => /Entity/.test(x) || x === 'pause' || x === 'resume' }
-      }
+        property: {
+          name: (x) => /Entity/.test(x) || x === "pause" || x === "resume",
+        },
+      },
     })
     .remove();
 
   ast
     .find(j.MemberExpression, {
-      object: { type: 'ThisExpression' },
-      property: { name: '_running' }
+      object: { type: "ThisExpression" },
+      property: { name: "_running" },
     })
     .replaceWith(() => j.literal(true));
 
   ast
     .find(j.BinaryExpression, {
-      operator: '===',
+      operator: "===",
       left: {
-        object: { type: 'ThisExpression' },
-        property: { name: '_state' }
+        object: { type: "ThisExpression" },
+        property: { name: "_state" },
       },
-      right: { name: x => /_ENTITY$/.test(x) }
+      right: { name: (x) => /_ENTITY$/.test(x) },
     })
     .replaceWith(() => j.literal(false));
 
@@ -53,31 +55,31 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     .find(j.AssignmentExpression, {
       left: {
         object: {
-          object: { name: x => /Tokenizer$/.test(x) },
-          property: { name: 'prototype' }
+          object: { name: (x) => /Tokenizer$/.test(x) },
+          property: { name: "prototype" },
         },
-        property: { name: '_parse' }
+        property: { name: "_parse" },
       },
       right: {
-        type: 'FunctionExpression'
-      }
+        type: "FunctionExpression",
+      },
     })
     .find(j.WhileStatement);
 
   whileLoopInParse
     .find(j.MemberExpression, {
-      object: { type: 'ThisExpression' },
-      property: { name: '_state' }
+      object: { type: "ThisExpression" },
+      property: { name: "_state" },
     })
-    .replaceWith(() => j.identifier('state___'));
+    .replaceWith(() => j.identifier("state___"));
 
-  whileLoopInParse.forEach(p => {
+  whileLoopInParse.forEach((p) => {
     p.value.body.body.unshift(
-      j.variableDeclaration('var', [
+      j.variableDeclaration("var", [
         j.variableDeclarator(
-          j.identifier('state___'),
-          j.memberExpression(j.thisExpression(), j.identifier('_state'))
-        )
+          j.identifier("state___"),
+          j.memberExpression(j.thisExpression(), j.identifier("_state"))
+        ),
       ])
     );
   });
@@ -89,23 +91,27 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     .find(j.AssignmentExpression, {
       left: {
         object: {
-          object: { name: x => /Parser$/.test(x) },
-          property: { name: 'prototype' }
+          object: { name: (x) => /Parser$/.test(x) },
+          property: { name: "prototype" },
         },
         property: {
-          name: x => x === 'parseChunk' || x === 'done' || x === 'pause' || x === 'resume'
-        }
-      }
+          name: (x) =>
+            x === "parseChunk" ||
+            x === "done" ||
+            x === "pause" ||
+            x === "resume",
+        },
+      },
     })
     .remove();
 
   ast
     .find(j.MemberExpression, {
       object: {
-        object: { type: 'ThisExpression' },
-        property: { name: '_options' }
+        object: { type: "ThisExpression" },
+        property: { name: "_options" },
       },
-      property: { name: 'Tokenizer' }
+      property: { name: "Tokenizer" },
     })
     .replaceWith(() => j.literal(false));
 
@@ -114,16 +120,18 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
   ast
     .find(j.MemberExpression, {
       object: {
-        object: { type: 'ThisExpression' },
-        property: { name: '_options' }
+        object: { type: "ThisExpression" },
+        property: { name: "_options" },
       },
-      property: { name: x => x === 'withDomLvl1' || x === 'ignoreWhitespace' }
+      property: {
+        name: (x) => x === "withDomLvl1" || x === "ignoreWhitespace",
+      },
     })
     .replaceWith(() => j.literal(false));
 
   ast
     .find(j.VariableDeclarator, {
-      id: { name: x => /defaultOpts$/.test(x) }
+      id: { name: (x) => /defaultOpts$/.test(x) },
     })
     .find(j.Property, { value: { value: false } })
     .remove();
@@ -132,23 +140,27 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
 
   ast
     .find(j.MemberExpression, {
-      object: { name: 'opts' },
-      property: { name: 'decodeEntities' }
+      object: { name: "opts" },
+      property: { name: "decodeEntities" },
     })
     .replaceWith(() => j.literal(false));
 
   ast
     .find(j.MemberExpression, {
-      object: { name: 'dom' },
-      property: { name: 'cheerio' }
+      object: { name: "dom" },
+      property: { name: "cheerio" },
     })
     .replaceWith(() => j.literal(false));
 
   const dupe1 = ast
-      .find(j.VariableDeclarator, { id: { name: x => /\$var\$singleTag$/.test(x) } })
+      .find(j.VariableDeclarator, {
+        id: { name: (x) => /\$var\$singleTag$/.test(x) },
+      })
       .nodes()[0],
     dupe2 = ast
-      .find(j.VariableDeclarator, { id: { name: x => /\$var\$voidElements$/.test(x) } })
+      .find(j.VariableDeclarator, {
+        id: { name: (x) => /\$var\$voidElements$/.test(x) },
+      })
       .nodes()[0];
 
   if (dupe1.start > dupe2.start) {
@@ -159,17 +171,23 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
 
   // common
 
-  ast.find(j.Property, { key: { name: 'decodeEntities' } }).remove();
+  ast.find(j.Property, { key: { name: "decodeEntities" } }).remove();
 
   let result = ast.toSource();
 
   // utils/traverse
 
-  result = result.replace(/&& hasOwnProperty\.call/, '&& Object.prototype.hasOwnProperty.call');
+  result = result.replace(
+    /&& hasOwnProperty\.call/,
+    "&& Object.prototype.hasOwnProperty.call"
+  );
 
   // util-create
 
-  result = result.replace(/[\w$]+_typeof\(def\) === 'object'/, 'typeof def === "object"');
+  result = result.replace(
+    /[\w$]+_typeof\(def\) === 'object'/,
+    'typeof def === "object"'
+  );
 
   return result;
 };

@@ -1,0 +1,25 @@
+{
+  "version": "0.2",
+  "words": [
+    "domelementtype",
+    "domhandler",
+    "domutils",
+    "fargs",
+    "funs",
+    "htmlparser",
+    "jscodeshift",
+    "mtext",
+    "noembed",
+    "onattribute",
+    "oncdataend",
+    "oncdatastart",
+    "onclosetag",
+    "oncomment",
+    "oncommentend",
+    "onopentag",
+    "onopentagname",
+    "onprocessinginstruction",
+    "ontext",
+    "uglifyjs"
+  ]
+}

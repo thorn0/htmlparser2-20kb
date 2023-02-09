@@ -1,17 +1,17 @@
-var Parser = require('htmlparser2/lib/Parser');
-var DomHandler = require('domhandler');
+var Parser = require("htmlparser2/lib/Parser");
+var DomHandler = require("domhandler");
 
-var traversal = require('domutils/lib/traversal'),
-  manipulation = require('domutils/lib/manipulation'),
-  querying = require('domutils/lib/querying');
+var traversal = require("domutils/lib/traversal"),
+  manipulation = require("domutils/lib/manipulation"),
+  querying = require("domutils/lib/querying");
 
 module.exports = {
-  parse: function(data, options) {
+  parse: function (data, options) {
     var handler = new DomHandler(options);
     new Parser(handler, options).end(data);
     return handler.dom;
   },
-  serialize: require('dom-serializer'),
+  serialize: require("dom-serializer"),
   Parser: Parser,
   DomHandler: DomHandler,
 
@@ -19,7 +19,7 @@ module.exports = {
   getAttribValue: traversal.getAttributeValue,
   hasAttrib: traversal.hasAttrib,
 
-  remove: function(node, dom) {
+  remove: function (node, dom) {
     manipulation.removeElement(node);
     if (Array.isArray(dom)) {
       while (true) {
@@ -38,5 +38,5 @@ module.exports = {
   findOne: querying.findOne,
   findAll: querying.findAll,
 
-  create: require('./lib/util-create').create
+  create: require("./lib/util-create").create,
 };
