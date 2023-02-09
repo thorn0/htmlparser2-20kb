@@ -10,10 +10,15 @@ declare namespace htmlparser {
     endIndex?: number;
   }
 
-  type DomNode = DomTextNode | DomDirectiveNode | DomCommentNode | DomTagNode | DomCdataNode;
+  type DomNode =
+    | DomTextNode
+    | DomDirectiveNode
+    | DomCommentNode
+    | DomTagNode
+    | DomCdataNode;
 
   interface DomTextNode extends BaseDomNode {
-    type: 'text';
+    type: "text";
     data: string;
     name?: undefined;
     attribs?: undefined;
@@ -21,7 +26,7 @@ declare namespace htmlparser {
   }
 
   interface DomDirectiveNode extends BaseDomNode {
-    type: 'directive';
+    type: "directive";
     data: string;
     // Actually, `name` is `string`, but this breaks type guards like `if (el.name === 'p') ...`.
     name?: undefined;
@@ -30,7 +35,7 @@ declare namespace htmlparser {
   }
 
   interface DomCommentNode extends BaseDomNode {
-    type: 'comment';
+    type: "comment";
     data: string;
     name?: undefined;
     attribs?: undefined;
@@ -38,7 +43,7 @@ declare namespace htmlparser {
   }
 
   interface DomTagNode extends BaseDomNode {
-    type: 'tag' | 'script' | 'style';
+    type: "tag" | "script" | "style";
     data?: undefined;
     name: string;
     attribs: { [name: string]: string };
@@ -46,7 +51,7 @@ declare namespace htmlparser {
   }
 
   interface DomCdataNode extends BaseDomNode {
-    type: 'cdata';
+    type: "cdata";
     data?: undefined;
     name?: undefined;
     attribs?: undefined;
@@ -78,9 +83,15 @@ declare namespace htmlparser {
     reset(): void;
   }
 
-  function parse(markup: string, options?: ParserOptions & HandlerOptions): DomNode[];
+  function parse(
+    markup: string,
+    options?: ParserOptions & HandlerOptions
+  ): DomNode[];
 
-  function serialize(dom: DomNode | DomNode[], options?: SerializerOptions): string;
+  function serialize(
+    dom: DomNode | DomNode[],
+    options?: SerializerOptions
+  ): string;
 
   function create(
     tagName: string,
@@ -130,13 +141,19 @@ declare namespace htmlparser {
    * Searches only for tags, ignores text nodes, etc.
    * Recursive, depth-first.
    */
-  function findOne(test: (el: DomTagNode) => boolean, nodes: DomNode[]): DomTagNode | null;
+  function findOne(
+    test: (el: DomTagNode) => boolean,
+    nodes: DomNode[]
+  ): DomTagNode | null;
 
   /**
    * Searches only for tags, ignores text nodes, etc.
    * Non-recursive, depth-first.
    */
-  function findAll(test: (el: DomTagNode) => boolean, nodes: DomNode[]): DomTagNode[];
+  function findAll(
+    test: (el: DomTagNode) => boolean,
+    nodes: DomNode[]
+  ): DomTagNode[];
 
   interface Handler {
     onopentag?: (name: string, attribs: { [type: string]: string }) => void;
@@ -193,7 +210,7 @@ declare namespace htmlparser {
   }
 
   interface SerializerOptions {
-    xmlMode?: boolean | 'foreign';
+    xmlMode?: boolean | "foreign";
     spaceInSelfClosing?: boolean;
   }
 }

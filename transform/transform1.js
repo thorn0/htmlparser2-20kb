@@ -184,10 +184,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
 
   // util-create
 
-  result = result.replace(
-    /[\w$]+_typeof\(def\) === 'object'/,
-    'typeof def === "object"'
-  );
+  result = result.replace(/[\w$]+_typeof\(def\) ===/, "typeof def ===");
 
   return result;
 };

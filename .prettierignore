@@ -1,2 +1,3 @@
-dist
-.cache
+/dist/htmlparser2-20kb.js
+/dist/README.md
+/.cache
