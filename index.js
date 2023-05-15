@@ -5,12 +5,31 @@ const traversal = require("domutils/lib/traversal"),
   manipulation = require("domutils/lib/manipulation"),
   querying = require("domutils/lib/querying");
 
+const parse = (data, options) => {
+  const handler = new DomHandler(options);
+  new Parser(handler, options).end(data);
+  return handler.dom;
+};
+
+const remove = (node, dom) => {
+  if (Array.isArray(node)) {
+    for (let index = 0; index < node.length; index++) {
+      remove(node[index], dom);
+    }
+    return;
+  }
+  manipulation.removeElement(node);
+  if (Array.isArray(dom)) {
+    for (let index = dom.length - 1; index >= 0; index--) {
+      if (dom[index] === node) {
+        dom.splice(index, 1);
+      }
+    }
+  }
+};
+
 module.exports = {
-  parse: function (data, options) {
-    const handler = new DomHandler(options);
-    new Parser(handler, options).end(data);
-    return handler.dom;
-  },
+  parse,
   serialize: require("dom-serializer"),
   Parser: Parser,
   DomHandler: DomHandler,
@@ -19,16 +38,7 @@ module.exports = {
   getAttribValue: traversal.getAttributeValue,
   hasAttrib: traversal.hasAttrib,
 
-  remove: function (node, dom) {
-    manipulation.removeElement(node);
-    if (Array.isArray(dom)) {
-      while (true) {
-        const index = dom.indexOf(node);
-        if (index === -1) break;
-        dom.splice(index, 1);
-      }
-    }
-  },
+  remove,
   replace: manipulation.replaceElement,
   appendChild: manipulation.appendChild,
   append: manipulation.append,

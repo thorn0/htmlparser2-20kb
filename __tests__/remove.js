@@ -13,10 +13,23 @@ describe("htmlparser.remove", () => {
   });
 
   test("can be passed to Array.prototype.forEach", () => {
+    const dom = htmlparser.parse("<p><a></a><b></b><a></a>");
+    const links = htmlparser.findAll((n) => n.name === "a", dom);
+    const b = htmlparser.findOne((n) => n.name === "b", dom);
+    expect(links.length).toBe(2);
+    expect(b.prev).not.toBe(null);
+    links.forEach(htmlparser.remove);
+    expect(b.prev).toBe(null);
+    expect(dom[0].children.length).toBe(1);
+  });
+
+  test("can remove multiple nodes", () => {
     const dom = htmlparser.parse("<a></a><b></b><a></a>");
+    expect(dom.length).toBe(3);
     const links = htmlparser.findAll((n) => n.name === "a", dom);
     expect(dom[1].prev).not.toBe(null);
-    links.forEach(htmlparser.remove);
-    expect(dom[1].prev).toBe(null);
+    htmlparser.remove(links, dom);
+    expect(dom[0].prev).toBe(null);
+    expect(dom.length).toBe(1);
   });
 });

@@ -113,7 +113,7 @@ declare namespace htmlparser {
    * @param dom Array of top-level nodes, e.g. returned from `parse`.
    * Ignored if `number`, so `forEach` can be used: `nodes.forEach(remove)`
    */
-  function remove(node: DomNode, dom?: DomNode[] | number): void;
+  function remove(nodes: DomNode | DomNode[], dom?: DomNode[] | number): void;
 
   function replace(node: DomNode, replacement: DomNode): void;
 
