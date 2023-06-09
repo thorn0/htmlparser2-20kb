@@ -32,4 +32,21 @@ describe("htmlparser.remove", () => {
     expect(dom[0].prev).toBe(null);
     expect(dom.length).toBe(1);
   });
+
+  test("can remove multiple nodes when passed array is `children` array of parent node", () => {
+    const dom = htmlparser.parse(
+      /* HTML */ `<section name="section_phase">
+        <field name="title" />
+        <field name="description" />
+      </section>`,
+      { xmlMode: true }
+    );
+    expect(dom.length).toBe(1);
+    const nodesToRemove = dom[0].children;
+    expect(nodesToRemove.length).toBe(5);
+    htmlparser.remove(nodesToRemove, dom);
+    expect(htmlparser.serialize(dom, { xmlMode: true })).toBe(
+      `<section name="section_phase"/>`
+    );
+  });
 });

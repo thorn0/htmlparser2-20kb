@@ -13,8 +13,9 @@ const parse = (data, options) => {
 
 const remove = (node, dom) => {
   if (Array.isArray(node)) {
-    for (let index = 0; index < node.length; index++) {
-      remove(node[index], dom);
+    let index = node.length;
+    while (index) {
+      remove(node[--index], dom);
     }
     return;
   }
