@@ -17,6 +17,8 @@ declare namespace htmlparser {
     | DomTagNode
     | DomCdataNode;
 
+  type Dom = DomNode[];
+
   interface DomTextNode extends BaseDomNode {
     type: "text";
     data: string;
