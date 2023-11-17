@@ -115,11 +115,13 @@ declare namespace htmlparser {
    * @param dom Array of top-level nodes, e.g. returned from `parse`.
    * Ignored if `number`, so `forEach` can be used: `nodes.forEach(remove)`
    */
-  function remove(nodes: DomNode | DomNode[], dom?: DomNode[] | number): void;
+  function remove(nodes: DomNode | DomNode[], dom?: Dom | number): void;
 
   function replace(node: DomNode, replacement: DomNode): void;
 
-  function appendChild(tag: DomTagNode, child: DomNode): void;
+  function appendChild(tag: DomTagNode, child: DomNode, dom?: Dom): void;
+
+  function prependChild(tag: DomTagNode, child: DomNode, dom?: Dom): void;
 
   /** Insert `next` after `node`. */
   function append(node: DomNode, next: DomNode): void;
