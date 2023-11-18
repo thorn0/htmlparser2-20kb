@@ -3,22 +3,22 @@ const htmlparser = require("../dist/htmlparser2-20kb");
 test("it works", () => {
   expect(htmlparser.serialize(htmlparser.create("div"))).toBe("<div></div>");
   expect(htmlparser.serialize(htmlparser.create("div", null))).toBe(
-    "<div></div>"
+    "<div></div>",
   );
   expect(htmlparser.serialize(htmlparser.create("div", { class: "foo" }))).toBe(
-    '<div class="foo"></div>'
+    '<div class="foo"></div>',
   );
   expect(
-    htmlparser.serialize(htmlparser.create("div", { class: "foo" }, "bar"))
+    htmlparser.serialize(htmlparser.create("div", { class: "foo" }, "bar")),
   ).toBe('<div class="foo">bar</div>');
   var node = htmlparser.create(
     "div",
     { class: "foo" },
     "bar",
-    htmlparser.create("strong", null, "baz")
+    htmlparser.create("strong", null, "baz"),
   );
   expect(htmlparser.serialize(node)).toBe(
-    '<div class="foo">bar<strong>baz</strong></div>'
+    '<div class="foo">bar<strong>baz</strong></div>',
   );
   expect(node.children[1].prev.data).toBe("bar");
   expect(node.children[1].parent).toBe(node);
@@ -27,8 +27,8 @@ test("it works", () => {
       htmlparser.create("div", { class: "foo" }, [
         "bar",
         htmlparser.create("strong", null, "baz"),
-      ])
-    )
+      ]),
+    ),
   ).toBe('<div class="foo">bar<strong>baz</strong></div>');
   expect(
     htmlparser.serialize(
@@ -37,9 +37,9 @@ test("it works", () => {
         { class: "bar" },
         { class: "foo" },
         ["bar", htmlparser.create("strong", null, "baz")],
-        "qux"
-      )
-    )
+        "qux",
+      ),
+    ),
   ).toBe('<div class="foo">bar<strong>baz</strong>qux</div>');
 });
 
@@ -50,13 +50,13 @@ test("ignore empty children", () => {
 
 test("maintains consistency of the donor tree when taking nodes from it", () => {
   var donor = htmlparser.parse(
-    "<p>foo <strong>bar</strong><em>baz</em></p>"
+    "<p>foo <strong>bar</strong><em>baz</em></p>",
   )[0];
   var strong = donor.children[1];
   expect(strong.name).toBe("strong");
   var created = htmlparser.create("div", "qux", strong);
   expect(htmlparser.serialize(created)).toBe(
-    "<div>qux<strong>bar</strong></div>"
+    "<div>qux<strong>bar</strong></div>",
   );
   expect(donor.children.length).toBe(2);
   expect(donor.children[0].next.name).toBe("em");
@@ -64,13 +64,13 @@ test("maintains consistency of the donor tree when taking nodes from it", () => 
 
 test("CSS classes shortcut", () => {
   expect(htmlparser.serialize(htmlparser.create("span.foo"))).toBe(
-    '<span class="foo"></span>'
+    '<span class="foo"></span>',
   );
   expect(htmlparser.serialize(htmlparser.create("span.foo.zoo"))).toBe(
-    '<span class="foo zoo"></span>'
+    '<span class="foo zoo"></span>',
   );
   expect(htmlparser.serialize(htmlparser.create(".foo"))).toBe(
-    '<div class="foo"></div>'
+    '<div class="foo"></div>',
   );
 });
 
@@ -89,6 +89,6 @@ test("misc #1", () => {
   }
   expect(fields.length).toBe(2);
   expect(htmlparser.serialize(el)).toBe(
-    '<layout><div><field name="a"></field></div><div><field name="b"></field></div></layout>'
+    '<layout><div><field name="a"></field></div><div><field name="b"></field></div></layout>',
   );
 });

@@ -18,15 +18,15 @@ test("unescaped less-than", () => {
 
 test("recognizeSelfClosing", () => {
   expect(roundTrip("<x1/><x2/>", { recognizeSelfClosing: true })).toBe(
-    "<x1></x1><x2></x2>"
+    "<x1></x1><x2></x2>",
   );
 });
 
 test("misc HTML", () => {
   expect(
     roundTrip(
-      "<div></div   ><p>&lt;</p><!--<x>--><input    type=checkbox checked/>"
-    )
+      "<div></div   ><p>&lt;</p><!--<x>--><input    type=checkbox checked/>",
+    ),
   ).toBe('<div></div><p>&lt;</p><!--<x>--><input type="checkbox" checked>');
 });
 
@@ -35,6 +35,6 @@ test("spaceInSelfClosing", () => {
     serialize(parse("<x1 /><x2 />", { recognizeSelfClosing: true }), {
       xmlMode: true,
       spaceInSelfClosing: true,
-    })
+    }),
   ).toBe("<x1 /><x2 />");
 });

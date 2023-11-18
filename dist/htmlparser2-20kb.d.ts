@@ -87,12 +87,12 @@ declare namespace htmlparser {
 
   function parse(
     markup: string,
-    options?: ParserOptions & HandlerOptions
+    options?: ParserOptions & HandlerOptions,
   ): DomNode[];
 
   function serialize(
     dom: DomNode | DomNode[],
-    options?: SerializerOptions
+    options?: SerializerOptions,
   ): string;
 
   function create(
@@ -138,7 +138,7 @@ declare namespace htmlparser {
     test: (node: DomNode) => boolean,
     nodes: DomNode | DomNode[],
     recursive?: boolean,
-    limit?: number
+    limit?: number,
   ): DomNode[];
 
   /**
@@ -147,7 +147,7 @@ declare namespace htmlparser {
    */
   function findOne(
     test: (el: DomTagNode) => boolean,
-    nodes: DomNode[]
+    nodes: DomNode[],
   ): DomTagNode | null;
 
   /**
@@ -156,7 +156,7 @@ declare namespace htmlparser {
    */
   function findAll(
     test: (el: DomTagNode) => boolean,
-    nodes: DomNode[]
+    nodes: DomNode[],
   ): DomTagNode[];
 
   interface Handler {

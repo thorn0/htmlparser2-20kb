@@ -78,9 +78,9 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
       j.variableDeclaration("var", [
         j.variableDeclarator(
           j.identifier("state___"),
-          j.memberExpression(j.thisExpression(), j.identifier("_state"))
+          j.memberExpression(j.thisExpression(), j.identifier("_state")),
         ),
-      ])
+      ]),
     );
   });
 
@@ -179,7 +179,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
 
   result = result.replace(
     /&& hasOwnProperty\.call/,
-    "&& Object.prototype.hasOwnProperty.call"
+    "&& Object.prototype.hasOwnProperty.call",
   );
 
   // util-create

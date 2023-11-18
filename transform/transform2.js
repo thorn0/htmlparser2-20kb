@@ -12,14 +12,14 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
       consequent: { type: "Literal" },
     })
     .filter(
-      (path) => path.value.test.left.value === path.value.consequent.value
+      (path) => path.value.test.left.value === path.value.consequent.value,
     )
     .replaceWith((path) =>
       j.conditionalExpression(
         path.value.test,
         path.value.test.right,
-        path.value.alternate
-      )
+        path.value.alternate,
+      ),
     );
 
   ast
@@ -37,7 +37,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     })
     .forEach((p) => {
       p.value.arguments[0] = j.literal(
-        p.value.arguments[0].value.replace(/!$/, "")
+        p.value.arguments[0].value.replace(/!$/, ""),
       );
     });
 
@@ -47,7 +47,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
     .toSource()
     .replace(
       "\n",
-      "\n  var hop = Object.prototype.hasOwnProperty, isArray = Array.isArray;\n"
+      "\n  var hop = Object.prototype.hasOwnProperty, isArray = Array.isArray;\n",
     )
     .replace(/Object\.prototype\.hasOwnProperty\./g, "hop.")
     .replace(/Array\.isArray\(/g, "isArray(")
@@ -63,7 +63,7 @@ module.exports = (fileInfo, { jscodeshift: j }) => {
   } else {
     // <script>
     this.htmlparser = $1;
-  }`
+  }`,
     );
 
   return source;

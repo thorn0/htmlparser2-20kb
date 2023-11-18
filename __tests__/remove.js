@@ -39,14 +39,14 @@ describe("htmlparser.remove", () => {
         <field name="title" />
         <field name="description" />
       </section>`,
-      { xmlMode: true }
+      { xmlMode: true },
     );
     expect(dom.length).toBe(1);
     const nodesToRemove = dom[0].children;
     expect(nodesToRemove.length).toBe(5);
     htmlparser.remove(nodesToRemove, dom);
     expect(htmlparser.serialize(dom, { xmlMode: true })).toBe(
-      `<section name="section_phase"/>`
+      `<section name="section_phase"/>`,
     );
   });
 });

@@ -6,5 +6,5 @@ if (x.attribs) {
 }
 htmlparser.remove(
   htmlparser.findAll((n) => n.name === "b", dom),
-  dom
+  dom,
 );
