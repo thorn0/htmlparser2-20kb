@@ -23,7 +23,7 @@ module.exports = {
   hasAttrib: traversal.hasAttrib,
 
   remove: manipulationExtra.remove,
-  replace: manipulation.replaceElement,
+  replace: manipulationExtra.replace,
   appendChild: manipulationExtra.appendChild,
   prependChild: manipulationExtra.prependChild,
   append: manipulation.append,

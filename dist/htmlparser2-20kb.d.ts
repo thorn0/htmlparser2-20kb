@@ -117,7 +117,11 @@ declare namespace htmlparser {
    */
   function remove(nodes: DomNode | DomNode[], dom?: Dom | number): void;
 
-  function replace(node: DomNode, replacement: DomNode): void;
+  /**
+   * Note that if `replacement` is part of the DOM, it should be removed first
+   * (e.g. using `remove`) for proper cleanup.
+   */
+  function replace(node: DomNode, replacement: DomNode, dom?: Dom): void;
 
   function appendChild(tag: DomTagNode, child: DomNode, dom?: Dom): void;
 
