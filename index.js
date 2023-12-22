@@ -31,7 +31,7 @@ module.exports = {
   prepend: manipulation.prepend,
 
   filter: querying.filter,
-  findOne: querying.findOne,
+  findOne: queryingExtra.findOne,
   findAll: queryingExtra.findAll,
 
   create: require("./lib/util-create").create,

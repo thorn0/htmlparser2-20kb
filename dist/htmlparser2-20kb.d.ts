@@ -147,10 +147,10 @@ declare namespace htmlparser {
 
   /**
    * Searches only for tags, ignores text nodes, etc.
-   * Recursive, depth-first.
+   * Non-recursive, depth-first.
    */
   function findOne(
-    test: (el: DomTagNode) => boolean,
+    test: ((el: DomTagNode) => boolean) | string,
     nodes: DomNode[],
   ): DomTagNode | null;
 
