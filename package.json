@@ -23,14 +23,7 @@
     "domelementtype": "2.3.0"
   },
   "scripts": {
-    "parcel": "parcel build index.js --out-file htmlparser2-20kb.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2_TMP_GLOBAL",
-    "transform1": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform1.js",
-    "transform2": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform2.js",
-    "uglify-c": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,unsafe=true,drop_console=true,hoist_funs=true,hoist_vars=true,keep_fargs=false,unsafe_regexp=true -o dist/htmlparser2-20kb.js --timings",
-    "uglify-cm": "uglifyjs dist/htmlparser2-20kb.js -c passes=10,pure_getters=true,unsafe=true,hoist_funs=true,keep_fargs=false -m --mangle-props regex=/^_/ -o dist/htmlparser2-20kb.js --timings",
-    "run-prepack": "prepack dist/htmlparser2-20kb.js --out dist/htmlparser2-20kb.js",
-    "bundle": "yarn run parcel && yarn run transform1 && yarn run uglify-c && yarn run run-prepack && yarn run transform2 && yarn run uglify-cm",
-    "build": "yarn run bundle && cp README.md dist/ && ls dist/htmlparser2-20kb.js -l && yarn run test && yarn run test-types && node -p fs.readFileSync('dist/htmlparser2-20kb.js').length",
+    "build": "./build.sh",
     "test": "jest",
     "test-types": "tsc -p ./type-tests",
     "format": "prettier -w ."
