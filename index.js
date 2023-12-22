@@ -4,7 +4,8 @@ const DomHandler = require("domhandler");
 const traversal = require("domutils/lib/traversal"),
   manipulation = require("domutils/lib/manipulation"),
   querying = require("domutils/lib/querying"),
-  manipulationExtra = require("./lib/manipulation-extra");
+  manipulationExtra = require("./lib/manipulation-extra"),
+  queryingExtra = require("./lib/querying-extra");
 
 const parse = (data, options) => {
   const handler = new DomHandler(options);
@@ -31,7 +32,7 @@ module.exports = {
 
   filter: querying.filter,
   findOne: querying.findOne,
-  findAll: querying.findAll,
+  findAll: queryingExtra.findAll,
 
   create: require("./lib/util-create").create,
 };

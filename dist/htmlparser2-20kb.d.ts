@@ -157,9 +157,10 @@ declare namespace htmlparser {
   /**
    * Searches only for tags, ignores text nodes, etc.
    * Non-recursive, depth-first.
+   * @param test Tag name or predicate function
    */
   function findAll(
-    test: (el: DomTagNode) => boolean,
+    test: ((el: DomTagNode) => boolean) | string,
     nodes: DomNode[],
   ): DomTagNode[];
 
