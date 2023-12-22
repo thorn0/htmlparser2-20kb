@@ -19,6 +19,9 @@
     "dom-serializer": "./alias/dom-serializer",
     "inherits": "./alias/inherits"
   },
+  "resolutions": {
+    "domelementtype": "2.3.0"
+  },
   "scripts": {
     "parcel": "parcel build index.js --out-file htmlparser2-20kb.js --experimental-scope-hoisting --no-source-maps --no-minify --global HTMLPARSER2_TMP_GLOBAL",
     "transform1": "jscodeshift dist/htmlparser2-20kb.js -t transform/transform1.js",
