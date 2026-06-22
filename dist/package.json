@@ -7,7 +7,10 @@
     "Georgii Dolzhykov <georgii.dolzhykov@gmail.com>"
   ],
   "license": "MIT",
-  "repository": "github:thorn0/htmlparser2-20kb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thorn0/htmlparser2-20kb.git"
+  },
   "keywords": [
     "html",
     "htmlparser",
