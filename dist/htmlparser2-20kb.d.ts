@@ -106,6 +106,9 @@ declare namespace htmlparser {
     >
   ): DomTagNode;
 
+  /** Tests whether a node is a tag (`tag`, `script` or `style`). */
+  function isTag(node: DomNode): node is DomTagNode;
+
   function getSiblings(node: DomNode): DomNode[];
   function hasAttrib(tag: DomTagNode, name: string): boolean;
 

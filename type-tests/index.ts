@@ -4,6 +4,9 @@ const x = dom[0];
 if (x.attribs) {
   console.log(x.children);
 }
+if (htmlparser.isTag(x)) {
+  console.log(x.name, x.attribs, x.children);
+}
 htmlparser.remove(
   htmlparser.findAll((n) => n.name === "b", dom),
   dom,

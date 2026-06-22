@@ -30,6 +30,7 @@ module.exports = {
   append: manipulation.append,
   prepend: manipulation.prepend,
 
+  isTag: queryingExtra.isTag,
   filter: querying.filter,
   findOne: queryingExtra.findOne,
   findAll: queryingExtra.findAll,
